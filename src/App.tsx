@@ -1,44 +1,26 @@
-import Controls from './components/Controls';
 import Header from './components/Header';
 import Main from './components/Main';
-import { useState, useEffect } from 'react'
-import { useGetCountriesQuery } from './redux'
-import List from './components/List';
-import Card from './components/Card';
+import { Route, Routes } from 'react-router-dom';
+
+import { HomePage } from './pages/HomePage';
+import { Details } from './pages/Details';
+import { NotFound } from './pages/NotFound';
+
 
 
 function App() {
   
-  const [countries, setCountries] = useState([]);
-  const {data = []} = useGetCountriesQuery('');  
 
 
   return (
     <>
       <Header />
       <Main>
-        <Controls/>
-        <List>
-          { data.map(el => {
-            let info = [
-              {
-                title: 'Population',
-                description: el.population.toLocaleString()
-              },
-              {
-                title: "Region",
-                description: el.region
-              },
-              {
-                title: 'Capital',
-                description: el.capital
-              }
-            ]
-            return (
-              <Card key={el.name} img={el.flags.png} name={el.name} info={info} />
-            )
-          })}
-        </List>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/country/:name' element={<Details />} />
+          <Route element={<NotFound />} />
+        </Routes>
       </Main>
     </>
   );

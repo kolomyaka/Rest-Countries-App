@@ -18,31 +18,44 @@ const CardImage = styled.img`
     box-shadow: var(--shadow);
 `;
 
-const CardBody = styled.div``;
+const CardBody = styled.div`
+    padding: 1rem 1rem 1.5rem;
+`;
 
 const CardTitle = styled.h3`
-    padding: 1rem 0 0 1rem;
+    font-size: var(--fs-md);
+    font-weight: var(--fw-bold);
 `;
 
 const CardList = styled.ul`
-    padding: 0 1rem 1rem 1rem;
 `;
 
-const CardListItem = styled.li``;
+const CardListItem = styled.li`
+
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+    font-weight: var(--fw-light);
+
+    & > b {
+        font-weight: var(--fw-bold);
+    }
+`;
 
 
 type Props = {
     img: string
     name: string
     info: Array<any>
+    onClick: () => void
 }
 
-const Card = ({img, name, info = []}: Props) => {
+const Card = ({img, name, info = [], onClick}: Props) => {
+    
     
 
   return (
-    <Wrapper >
-        <CardImage src={img}/>
+    <Wrapper onClick={onClick}>
+        <CardImage src={img} alt={name} />
         <CardBody>
             <CardTitle>
                 {name}
