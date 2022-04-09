@@ -16,6 +16,8 @@ const InputContainer = styled.label`
   @media (min-width: 767px) {
     margin-bottom: 0;
     width: 280px;
+    background-color: var(--colors-ui-base);
+
   }
 `;
 
@@ -27,6 +29,8 @@ const Input = styled.input.attrs({
   border: none;
   outline: none;
   color: var(--colors-text);
+  background-color: var(--colors-ui-base);
+
 `;
 
 type Props = {
