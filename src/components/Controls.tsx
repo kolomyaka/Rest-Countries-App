@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { Search } from './Search'
-
+import { CustomSelect } from './CustomSelect';
 
 type Props = {}
 

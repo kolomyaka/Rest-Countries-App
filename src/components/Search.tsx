@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { IoMoon } from "react-icons/io5";
+import { IoSearchSharp } from "react-icons/io5";
 
 const InputContainer = styled.label`
   background-color: var(--colors-ui-base);
-  padding: 1rem 2rem;
+  padding: 1rem 2rem 1rem 1rem;
   display: flex;
   align-items: center;
 
@@ -26,7 +26,6 @@ const Input = styled.input.attrs({
   margin-left: 2rem;
   border: none;
   outline: none;
-  background-color: var(--colors-ui-base);
   color: var(--colors-text);
 `;
 
@@ -38,7 +37,7 @@ type Props = {
 export const Search = ({ search, setSearch }: Props) => {
   return (
     <InputContainer>
-      <IoMoon size="14px" />
+      <IoSearchSharp size="14px" />
       <Input />
     </InputContainer>
   );
