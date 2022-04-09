@@ -1,7 +1,6 @@
 import Controls from './components/Controls';
 import Header from './components/Header';
 import Main from './components/Main';
-import axios from 'axios';
 import { useState, useEffect } from 'react'
 
 function App() {
@@ -9,7 +8,6 @@ function App() {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
-    
   }, [])
 
   return (
