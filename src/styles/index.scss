@@ -1,0 +1,16 @@
+@import '~normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+@import './variables.scss';
+
+*, *::after, *::before  {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: $family;
+    color: $colors-text;
+    font-weight: $fw-light;
+    background-color: $colors-bg;
+}
+
