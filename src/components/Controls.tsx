@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { Search } from "./Search";
 import { CustomSelect } from "./CustomSelect";
 import styled from 'styled-components';
-type Props = {};
 
+type Props = {
+  onSearch: (search: string, region: string) => any
+};
 
 const Wrapper = styled.div`
     display: flex;
@@ -27,9 +29,16 @@ const options = [
   { value: "Oceania", label: "Oceania" },
 ];
 
-const Controls = (props: Props) => {
+const Controls = ({onSearch}: Props) => {
   const [search, setSearch] = useState("");
-  const [region, setRegion] = useState("");
+  const [region, setRegion] = useState(null);
+
+  useEffect(() => {
+    console.log(region?.value);
+    
+    onSearch(search, 'Africa');
+  }, [search, region])
+  
 
   return (
     <Wrapper>
@@ -40,6 +49,8 @@ const Controls = (props: Props) => {
         isClearable
         isSearchable={false}
         value={region}
+        // @ts-ignore
+        onChange={setRegion}
       />
     </Wrapper>
   );
