@@ -42,7 +42,7 @@ export const Search = ({ search, setSearch }: Props) => {
   return (
     <InputContainer>
       <IoSearchSharp size="14px" />
-      <Input />
+      <Input onChange={(e) => setSearch(e.target.value)} value={search} />
     </InputContainer>
   );
 };

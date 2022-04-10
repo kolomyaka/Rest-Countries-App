@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import Controls from "../components/Controls";
@@ -13,7 +13,15 @@ export const HomePage = (props: Props) => {
     const navigate = useNavigate();
     const [filteredCountries, setFilteredCountries] = useState(data);
 
+    useEffect(() => {
+        if (data.length) {
+            setFilteredCountries(data);
+        }
+    },[data])
+    
+
     const handleSearch = (search: string, region: string) => {
+        
         let countries = [...data];
 
         if (region) {
@@ -27,12 +35,12 @@ export const HomePage = (props: Props) => {
         setFilteredCountries(countries);
     }
 
-
+    
     return (
         <>
         <Controls onSearch={handleSearch} />
         <List>
-            {data.map((el) => {
+            { filteredCountries ? filteredCountries.map((el) => {
             let info = [
                 {
                 title: "Population",
@@ -55,8 +63,30 @@ export const HomePage = (props: Props) => {
                 info={info}
                 onClick={() => navigate(`/country/${el.name}`)}
                 />
-            );
-            })}
+            )}) : data.map((el) => {
+                let info = [
+                    {
+                    title: "Population",
+                    description: el.population.toLocaleString(),
+                    },
+                    {
+                    title: "Region",
+                    description: el.region,
+                    },
+                    {
+                    title: "Capital",
+                    description: el.capital,
+                    },
+                ];
+                return (
+                    <Card
+                    key={el.name}
+                    img={el.flags.png}
+                    name={el.name}
+                    info={info}
+                    onClick={() => navigate(`/country/${el.name}`)}
+                    />
+                )})}
         </List>
         </>
     );

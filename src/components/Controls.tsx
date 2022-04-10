@@ -20,6 +20,10 @@ const Wrapper = styled.div`
     }
 `;
 
+interface RegionType  {
+  value: string;
+  label: string
+}
 
 const options = [
   { value: "Africa", label: "Africa" },
@@ -31,15 +35,19 @@ const options = [
 
 const Controls = ({onSearch}: Props) => {
   const [search, setSearch] = useState("");
-  const [region, setRegion] = useState(null);
-
+  const [region, setRegion] = useState<RegionType>({value: '', label:'Filter by region'});
+  
   useEffect(() => {
-    console.log(region?.value);
-    
-    onSearch(search, 'Africa');
+    if (region?.value) {
+      onSearch(search, region?.value);
+    }
+    if (search) {
+      onSearch(search, region?.value)
+    }
+    // eslint-disable-next-line
   }, [search, region])
   
-
+  
   return (
     <Wrapper>
       <Search search={search} setSearch={setSearch} />
