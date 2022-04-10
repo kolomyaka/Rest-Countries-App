@@ -3,7 +3,7 @@ import { Currencies, Languages, TopLevelDomain } from '../../pages/Details';
 
 
 const ListItem = styled.li`
-
+    padding: 5px;
     & > b {
         font-weight: var(--fw-bold);
     }

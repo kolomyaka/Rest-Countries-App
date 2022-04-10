@@ -1,5 +1,6 @@
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Currencies, Languages, TopLevelDomain } from "../pages/Details";
 import { useSearchByCodesQuery } from "../redux";
@@ -7,83 +8,77 @@ import { DetailsCardItemBot } from "./DetailsCardItem/DetailsCardItemBot";
 import { DetailsCardItemTop } from "./DetailsCardItem/DetailsCardItemTop";
 
 const Wrapper = styled.section`
-    margin-top: 3rem;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 100%;
-    gap: 2rem;
+  margin-top: 3rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 2rem;
 
-    @media (min-width: 767px) {
-        grid-template-columns: minmax(100px, 400px) 1fr;
-        align-items:center;
-        gap: 5rem;
-    }
+  @media (min-width: 767px) {
+    grid-template-columns: minmax(100px, 400px) 1fr;
+    align-items: center;
+    gap: 5rem;
+  }
 
-    @media (min-width: 1024px) {
-        grid-template-columns: minmax(400px, 600px) 1fr;
-    }
+  @media (min-width: 1024px) {
+    grid-template-columns: minmax(400px, 600px) 1fr;
+  }
 `;
 
 const CardImage = styled.img`
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 `;
 
 const CardTitle = styled.h1`
-    font-weight: var(--fw-normal);
+  font-weight: var(--fw-normal);
 `;
 
 const ListGroup = styled.div`
-    display: flex;
-    flex-direction:column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
-    @media (min-width: 1024px) {
-        flex-direction: row;
-        gap: 4rem;
-    }
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    gap: 4rem;
+  }
 `;
 
-const List = styled.ul`
-
-`;
-
-
-
+const List = styled.ul``;
 
 const Meta = styled.div`
-   margin-top: 3rem;
-   display: flex;
-   gap: 1.5rem;
-   flex-direction:column;
-   align-items: flex-start;
+  margin-top: 3rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  align-items: flex-start;
 
-   @media (min-width: 767px) {
-       flex-direction: row;
-       align-items:center;
-   }
+  @media (min-width: 767px) {
+    flex-direction: row;
+    align-items: center;
+  }
 
-   & > b {
-       font-weight: var(--fw-bold);
-   }
+  & > b {
+    font-weight: var(--fw-bold);
+  }
 `;
 
 const TagGroup = styled.div`
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 `;
 
 const Tag = styled.span`
-    padding: 0 1rem;
-    background-color: var(--colors-ui-base);
-    box-shadow: var(--shadow);
-    line-height: 1.5rem;
-    cursor: pointer;
+  padding: 0 1rem;
+  background-color: var(--colors-ui-base);
+  box-shadow: var(--shadow);
+  line-height: 1.5rem;
+  cursor: pointer;
 `;
-
 
 type Props = {
   name: string;
@@ -96,7 +91,11 @@ type Props = {
   currencies: Currencies[];
   languages: Languages[];
   topLevelDomain: TopLevelDomain[];
-  borders: string[]
+  borders: string[];
+};
+
+type NeighboursType = {
+  name: string;
 };
 
 export const DetailsCard = ({
@@ -110,18 +109,27 @@ export const DetailsCard = ({
   currencies,
   languages,
   topLevelDomain,
-  borders,
+  borders = [],
 }: Props) => {
-  console.log(borders);
-    const [neighbours, setNeighbours] = useState<string[]>([]);
-    const { data } = useSearchByCodesQuery(neighbours.length ? neighbours : skipToken)
+  const [neighbours, setNeighbours] = useState<string[]>([]);
+  const [bordersCountry, setBordersCountry] = useState([]);
+  const { data } = useSearchByCodesQuery(
+    neighbours.length ? neighbours : skipToken
+  );
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        setNeighbours(borders)
-    }, [borders])
+  useEffect(() => {
+    if (borders.length) {
+      setNeighbours(borders);
+    }
+  }, [borders]);
 
-    console.log(data);
-    
+  useEffect(() => {
+    if (data?.length) {
+      setBordersCountry(data.map((c: NeighboursType) => c.name));
+    }
+  }, [data]);
+
   return (
     <Wrapper>
       <CardImage src={flag} />
@@ -139,7 +147,7 @@ export const DetailsCard = ({
             />
           </List>
           <List>
-              <DetailsCardItemBot 
+            <DetailsCardItemBot
               currencies={currencies}
               languages={languages}
               topLevelDomain={topLevelDomain}
@@ -147,14 +155,18 @@ export const DetailsCard = ({
           </List>
         </ListGroup>
         <Meta>
-            <b>Border Countries</b>
-            {!borders.length ? (
-                <span>There is no border countries</span>
-            ) : (
-                <TagGroup>
-                    {borders.map(b => (<Tag key={b}>{b}</Tag>))}
-                </TagGroup>
-            )}
+          <b>Border Countries</b>
+          {!borders.length ? (
+            <span>There is no border countries</span>
+          ) : (
+            <TagGroup>
+              {bordersCountry.map((b) => (
+                <Tag key={b} onClick={() => navigate(`/country/${b}`)}>
+                  {b}
+                </Tag>
+              ))}
+            </TagGroup>
+          )}
         </Meta>
       </div>
     </Wrapper>

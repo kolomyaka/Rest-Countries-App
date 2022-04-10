@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const ListItem = styled.li`
-
+    padding: 5px;
     & > b {
         font-weight: var(--fw-bold);
     }
