@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
-const ListItem = styled.li``;
+const ListItem = styled.li`
+
+    & > b {
+        font-weight: var(--fw-bold);
+    }
+`;
 
 type Props = {
-  name: string;
   nativeName: string;
-  flag: string;
   capital: string;
   population: number;
   region: string;
@@ -13,9 +16,7 @@ type Props = {
 };
 
 export const DetailsCardItemTop = ({
-  name,
   nativeName,
-  flag,
   capital,
   population,
   region,
