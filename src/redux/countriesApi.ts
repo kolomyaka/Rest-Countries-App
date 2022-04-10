@@ -7,8 +7,11 @@ export const countriesApi = createApi({
     endpoints: (build) => ({
         getCountries: build.query<Country[], string>({
             query: () => 'all?fields=name,capital,flags,population,region,capital',
+        }),
+        searchByCountry: build.query({
+            query: (name: string) => `name/${name}`
         })
     })
 });
 
-export const { useGetCountriesQuery } = countriesApi;
+export const { useGetCountriesQuery, useSearchByCountryQuery } = countriesApi;
