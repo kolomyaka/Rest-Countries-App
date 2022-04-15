@@ -31,7 +31,6 @@ const CardList = styled.ul`
 `;
 
 const CardListItem = styled.li`
-
     font-size: var(--fs-sm);
     line-height: 1.5;
     font-weight: var(--fw-light);
@@ -50,8 +49,6 @@ type Props = {
 }
 
 const Card = ({img, name, info = [], onClick}: Props) => {
-    
-    
 
   return (
     <Wrapper onClick={onClick}>

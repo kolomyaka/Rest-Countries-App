@@ -8,86 +8,88 @@ import { useGetCountriesQuery } from "../redux";
 type Props = {};
 
 export const HomePage = (props: Props) => {
+  const { data = [] } = useGetCountriesQuery("");
+  const navigate = useNavigate();
+  const [filteredCountries, setFilteredCountries] = useState(data);
 
-    const { data = [] } = useGetCountriesQuery("");
-    const navigate = useNavigate();
-    const [filteredCountries, setFilteredCountries] = useState(data);
+  useEffect(() => {
+    if (data.length) {
+      setFilteredCountries(data);
+    }
+  }, [data]);
 
-    useEffect(() => {
-        if (data.length) {
-            setFilteredCountries(data);
-        }
-    },[data])
-    
+  const handleSearch = (search: string, region: string) => {
+    let countries = [...data];
 
-    const handleSearch = (search: string, region: string) => {
-        
-        let countries = [...data];
-
-        if (region) {
-            countries = countries.filter(c => c.region.includes(region))
-        }
-
-        if (search) {
-            countries = countries.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
-        }
-
-        setFilteredCountries(countries);
+    if (region) {
+      countries = countries.filter((c) => c.region.includes(region));
     }
 
-    
-    return (
-        <>
-        <Controls onSearch={handleSearch} />
-        <List>
-            { filteredCountries ? filteredCountries.map((el) => {
-            let info = [
+    if (search) {
+      countries = countries.filter((c) =>
+        c.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    setFilteredCountries(countries);
+  };
+
+  return (
+    <>
+      <Controls onSearch={handleSearch} />
+      <List>
+        {filteredCountries
+          ? filteredCountries.map((el) => {
+              let info = [
                 {
-                title: "Population",
-                description: el.population.toLocaleString(),
+                  title: "Population",
+                  description: el.population.toLocaleString(),
                 },
                 {
-                title: "Region",
-                description: el.region,
+                  title: "Region",
+                  description: el.region,
                 },
                 {
-                title: "Capital",
-                description: el.capital,
+                  title: "Capital",
+                  description: el.capital,
                 },
-            ];
-            return (
+              ];
+              return (
                 <Card
-                key={el.name}
-                img={el.flags.png}
-                name={el.name}
-                info={info}
-                onClick={() => navigate(`/country/${el.name}`)}
+                  key={el.name}
+                  img={el.flags.png}
+                  name={el.name}
+                  info={info}
+                  onClick={() => navigate(`/country/${el.name}`)}
                 />
-            )}) : data.map((el) => {
-                let info = [
-                    {
-                    title: "Population",
-                    description: el.population.toLocaleString(),
-                    },
-                    {
-                    title: "Region",
-                    description: el.region,
-                    },
-                    {
-                    title: "Capital",
-                    description: el.capital,
-                    },
-                ];
-                return (
-                    <Card
-                    key={el.name}
-                    img={el.flags.png}
-                    name={el.name}
-                    info={info}
-                    onClick={() => navigate(`/country/${el.name}`)}
-                    />
-                )})}
-        </List>
-        </>
-    );
+              );
+            })
+          : data.map((el) => {
+              let info = [
+                {
+                  title: "Population",
+                  description: el.population.toLocaleString(),
+                },
+                {
+                  title: "Region",
+                  description: el.region,
+                },
+                {
+                  title: "Capital",
+                  description: el.capital,
+                },
+              ];
+              return (
+                <Card
+                  key={el.name}
+                  img={el.flags.png}
+                  name={el.name}
+                  info={info}
+                  onClick={() => navigate(`/country/${el.name}`)}
+                />
+              );
+            })}
+      </List>
+    </>
+  );
 };
