@@ -2,11 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import Select from 'react-select';
 
-
-
-type Props = {}
-
-
 export const CustomSelect = styled(Select).attrs({
   styles: {
     control: (provided) => ({

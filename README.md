@@ -1,8 +1,10 @@
-Полный стек : 
- - ReactJS + hooks
+## Get information about countries via a RESTful API
+
+### Stack  
+ - ReactJS
  - TypeScript
- - RTK Query (Библиотека для отправки запросов на сервер)
- - React Router (библиотека для реализации переходов без перезагрузки страницы).
+ - RTK Query 
+ - React Router
  - React select
  - Styled Components 
 
