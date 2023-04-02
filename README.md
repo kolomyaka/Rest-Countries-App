@@ -8,4 +8,4 @@
  - React select
  - Styled Components 
 
-https://react-rest-countries.herokuapp.com/
+https://rest-countries-app-jet.vercel.app/
