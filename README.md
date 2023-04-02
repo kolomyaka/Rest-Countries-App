@@ -2,6 +2,7 @@
 
 ### Stack  
  - ReactJS
+ - Redux toolkit
  - TypeScript
  - RTK Query 
  - React Router
