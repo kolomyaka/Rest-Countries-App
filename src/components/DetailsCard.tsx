@@ -113,9 +113,12 @@ export const DetailsCard = ({
 }: Props) => {
   const [neighbours, setNeighbours] = useState<string[]>([]);
   const [bordersCountry, setBordersCountry] = useState([]);
+
   const { data } = useSearchByCodesQuery(
     neighbours.length ? neighbours : skipToken
   );
+
+
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -39,7 +39,9 @@ type Props = {};
 export const Details = (props: Props) => {
   const { name } = useParams();
   const [country, setCountry] = useState<Country[]>();
+
   const { data } = useSearchByCountryQuery(name ? name : skipToken);
+
   const navigate = useNavigate();
   useEffect(() => {
     setCountry(data);

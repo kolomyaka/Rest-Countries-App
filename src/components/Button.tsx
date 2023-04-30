@@ -12,3 +12,7 @@ export const Button = styled.button`
     color: var(--colors-text);
     cursor: pointer;
 `
+
+
+
+
